@@ -1,0 +1,58 @@
+
+#playerInfo {
+    display: flex;
+    align-items: center;
+}
+#playerInfo img {
+    margin-right: 10px;
+}
+body{background-image: url("./background2.png"); background-size: cover;background-repeat: no-repeat;}
+.button {
+    margin-top: 30px;
+    width: 50%;
+    background-color: grey;
+    color: #080710;
+    padding: 10px ;
+    font-size: 30px;
+    font-weight: 60;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.5;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#playerInfo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: black;
+}
+#playerInfo img {
+    width: 50px;
+    height: 50px;
+}
+.version-id {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    color: black;
+    font-size: 12px;
+}
+.center-image {
+    display: flex;
+    justify-content: center;
+}
+
+.center-image img {
+    width: 150%; /* Adjust this to change the image size */
+    max-width: 600px; /* Adjust this to set a maximum size for the image */
+}
