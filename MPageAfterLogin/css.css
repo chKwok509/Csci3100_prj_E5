@@ -8,17 +8,17 @@
 }
 body{background-image: url("./background2.png"); background-size: cover;background-repeat: no-repeat;}
 .button {
-    margin-top: 30px;
-    width: 50%;
-    background-color: grey;
-    color: #080710;
-    padding: 10px ;
-    font-size: 30px;
-    font-weight: 60;
-    border-radius: 10px;
-    cursor: pointer;
+    border: none;
+    padding: 0;
+    display: inline-block;
+    background: none;
+    font-size: 50px;
+    margin: 10px;
+}
+.button:hover {
+    background: white;
     opacity: 0.5;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor: pointer;
 }
 body {
     display: flex;
