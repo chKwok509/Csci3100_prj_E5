@@ -1,87 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column ;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-image: url("./loginback1.jpeg"); background-size: cover;background-repeat: no-repeat;
-        }
-
-        .start-button {
-            font-size: 6em;
-            padding: 20px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            color: wheat;
-            font-family: 'Papyrus', Fantasy;
-        }
-
-        .rule-link {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            font-size: 2em;
-            font-family: 'Papyrus', Fantasy;
-            color: white;
-            cursor: pointer;
-            background: none;
-
-        }
-
-        .image-above {
-            width: 600px; 
-            height: auto;
-        }
-          /* The Modal (background) */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-        }
-
-
-    .modal-content {
-        background-color: grey;
-        margin: 15% auto; 
-        color: white;
-        padding: 20px;
-        border: 1px solid #888;
-        border-radius: 30px;
-        width: 800px; 
-        height: 350px;
-        font-family: 'Papyrus', Fantasy;
-        font-size: 1.5em;
-    }
-
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 60px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    </style>
+   <link rel="stylesheet" href="startpage.css">
 </head>
 <body>
         <img src="./2.png" alt="Image description" class="image-above">
@@ -90,9 +10,9 @@
         </a>
         <button id="rulesBtn" class="rule-link">Rules</button>
     
-        <!-- The Modal -->
+
         <div id="rulesModal" class="modal">
-            <!-- Modal content -->
+
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p>1. The Game is played by two player on a grid<br><br>2. You can choose O or X as your mark<br><br>3. In order to win the game, player should make five continuous same mark for horizontal,vertical or diagonal row<br><br>4. Enjoy the game</p>
