@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("./loginback1.jpeg"); background-size: cover;background-repeat: no-repeat;
+}
+
+.start-button {
+    font-size: 6em;
+    padding: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: wheat;
+    font-family: 'Papyrus', Fantasy;
+}
+
+.rule-link {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 2em;
+    font-family: 'Papyrus', Fantasy;
+    color: white;
+    cursor: pointer;
+    background: none;
+
+}
+
+.image-above {
+    width: 600px; 
+    height: auto;
+}
+  /* The Modal (background) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+
+.modal-content {
+background-color: grey;
+margin: 15% auto; 
+color: white;
+padding: 20px;
+border: 1px solid #888;
+border-radius: 30px;
+width: 800px; 
+height: 350px;
+font-family: 'Papyrus', Fantasy;
+font-size: 1.5em;
+}
+
+
+.close {
+color: #aaa;
+float: right;
+font-size: 60px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
