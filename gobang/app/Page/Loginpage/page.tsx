@@ -1,0 +1,26 @@
+import styles from './LoginPage.module.css';
+import React from 'react';
+
+export default function LoginPage() {
+    
+    return (
+        <body className={styles.body}>
+            <form className={styles.form}>
+            <h3 className={styles.form_h3}>Let'sBang</h3>
+
+            <label htmlFor="username" className={styles.label}>Email</label>
+            <input type="text" placeholder="Email or Phone" id="username" className={styles.input}/>
+
+            <label htmlFor="password" className={styles.label}>Password</label>
+            <input type="password" placeholder="Password" id="password" className={styles.input}/>
+
+            <button className={styles.button}>Log In</button>
+                <div className={styles.social}>
+                    <div className={styles.social_div}>Register Here By Email</div>
+                    <div className={styles.social_div}>Forgot Your Password</div>
+                    <br></br>
+                </div>
+            </form>
+        </body>
+    );
+}
