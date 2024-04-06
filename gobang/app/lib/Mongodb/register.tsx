@@ -8,23 +8,33 @@ export default async function registerUser(username: string, password: string) {
         const db = client.db('text');
 
         // Get the users collection
+        const rankingmark = 0; // Declare and initialize the variable 'rankingmark' with a default value
+        const gold = 0; // Declare and initialize the variable 'gold' with a default value
         const usersCollection = db.collection('usersnamepw');
 
         // Create a new user document
         const newUser = {
             username,
             password,
+            rankingmark,
+            gold,
         };
 
-        // Insert the new user document into the collection
-        await usersCollection.insertOne(newUser);
+        // Check if the user already exists
+        const existingUser = await usersCollection.findOne({ username: username });
 
-        // Close the MongoDB connection
-        client.close();
-
-        console.log('User registered successfully!');
+        if (existingUser) {
+            console.log('User already exists!');
+            return false;
+        }else{
+            // Insert the new user document into the collection
+            await usersCollection.insertOne(newUser);
+            console.log('User registered successfully!');
+            return true;
+        }
     } catch (error) {
         console.error('Error registering user:', error);
+        return false;
     }
 }
 

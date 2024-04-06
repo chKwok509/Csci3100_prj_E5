@@ -25,7 +25,15 @@ export default function RegisterPage() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ username, password }),
-        }); // Send a POST request to the server
+        }).then(response => {
+            if (response.ok) {
+                // Redirect the user to the login page
+                router.push('/Page/Loginpage');
+            } else {
+                // Display an error message to the user
+                alert('Repeated username or password!');
+            }
+        });
     };
 
     return (
