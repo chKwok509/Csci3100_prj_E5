@@ -29,8 +29,8 @@ app.post("/signup",async(req,res)=>{
         password:req.body.password
     }
     await collection.insertMany([data]);
-
-    res.render("home");
+    const check = await collection.findOne({ name: req.body.name });
+    res.render("home",{ name: req.body.name,ranking: check.rankingmark, gold: check.gold});
 });
 
 app.post("/login", async (req, res) => {
@@ -38,7 +38,8 @@ app.post("/login", async (req, res) => {
         const check = await collection.findOne({ name: req.body.name })
 
         if (check && check.password === req.body.password) {
-            res.render("home")
+            
+            res.render("home",{ name: req.body.name ,ranking: check.rankingmark, gold: check.gold });
         }
         else {
             res.render('login', { message: "Wrong Name or Password" });
