@@ -14,7 +14,7 @@ export default function Home() {
         width={600} 
         height={120}
       />
-      <button type="button" onClick={() => router.push('./Page/Loginpage')}className={styles.start_button}>
+      <button type="button" onClick={() => router.push('./Page/Loginpage')} className={styles.start_button}>
         Start
       </button>
       <Popuprule/>
