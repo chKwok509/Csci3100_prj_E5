@@ -11,10 +11,10 @@ export default function LoginPage() {
             <h3 className={styles.form_h3}>Let'sBang</h3>
 
             <label htmlFor="username" className={styles.label}>Email</label>
-            <input type="text" placeholder="Email or Phone" id="username" className={styles.input}/>
+            <input type="text" placeholder="Email or Phone" required id="username" className={styles.input}/>
 
             <label htmlFor="password" className={styles.label}>Password</label>
-            <input type="password" placeholder="Password" id="password" className={styles.input}/>
+            <input type="password" placeholder="Password" required id="password" className={styles.input}/>
 
             <button  type="button" onClick={() => router.push('./Mainpage')} className={styles.button}>Log In</button>
                 <div className={styles.social}>
