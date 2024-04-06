@@ -6,7 +6,7 @@ margin: 0;
 box-sizing: border-box;
 }
 body{
-background-image: url("loginback.jpg");
+background-image: url("./loginback.jpg");
 background-repeat: no-repeat;
 background-size: cover;
 }
@@ -34,7 +34,7 @@ box-shadow: 0 0 40px rgba(8,7,16,0.6);
 padding: 50px 35px;
 }
 form *{
-font-family: 'Poppins',sans-serif;
+font-family: 'Papyrus', Fantasy;
 color: #000000;
 letter-spacing: 0.5px;
 outline: none;
@@ -58,6 +58,7 @@ display: block;
 height: 50px;
 width: 100%;
 background-color: rgba(255,255,255,0.07);
+color: black;
 border-radius: 3px;
 padding: 0 10px;
 margin-top: 8px;
@@ -65,38 +66,40 @@ font-size: 14px;
 font-weight: 300;
 }
 ::placeholder{
-color: #e5e5e5;
+color: rgb(72, 49, 49);
+font-size: 15px;
 }
 button{
-margin-top: 50px;
-width: 100%;
-background-color: #ffffff;
+margin-top: 530px;
+width: 18%;
+margin-left: 0px;
+background-color: gray;
 color: #080710;
 padding: 15px 0;
-font-size: 18px;
+font-size: 15px;
 font-weight: 600;
 border-radius: 5px;
 cursor: pointer;
+opacity: 0.5;
 }
 .social{
-margin-top: 30px;
+margin-top:500px;
 display: flex;
 }
-.social div{
-width: 200px;
-border-radius: 10px;
-padding: 10px 10px 10px 5px;
-background-color: rgba(255,255,255,0.27);
-color: #000000;
-text-align: center;
+.submitbon{
+    color: white;
+    background-color: gray;
+    opacity: 0.9;
+    cursor: pointer;
+    font-family: 'Papyrus', Fantasy;
+    height: 50px;
 }
-.social div:hover{
-background-color: rgba(255,255,255,0.47);
-}
-.social .next{
-margin-left: 50px;
-}
-.social {
-margin-right: 4px;
+.go{
+    font-family: 'Papyrus', Fantasy;
+    cursor: pointer;
+    color: white;
+    margin-left: 38.5%;
+    height: 50px;
+    width : 23%;
 }
 
