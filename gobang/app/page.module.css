@@ -6,7 +6,9 @@
   height: 100vh;
   margin: 0px;
   font-family: Arial, sans-serif;
-  background-image: url("../public/loginback1.jpeg"); background-size: cover;background-repeat: no-repeat;
+  background-image: url("../public/loginback1.jpeg"); 
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .start_button {

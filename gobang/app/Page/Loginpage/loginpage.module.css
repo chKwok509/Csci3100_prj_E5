@@ -6,7 +6,7 @@
     transform: translate(-50%,-50%);
     left: 50%;
     top: 50%;
-    background-image: url("./loginback.jpg");
+    background-image: url("/loginback1.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
   }
