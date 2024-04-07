@@ -1,0 +1,14 @@
+.button{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 5px;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin: 2px 2px 2px 2px;
+}

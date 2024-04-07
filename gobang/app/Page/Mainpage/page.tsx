@@ -20,8 +20,8 @@ export default function MainPage() {
                 </div>
             </div>
         <br></br>
-        <button className={styles.button} onClick={() => alert('PVP')}>PVP</button>
-        <button className={styles.button} onClick={() => alert('PVC')}>PVC</button>
+        <button className={styles.button} onClick={() => router.push('/Page/Gamepage')}>PVP</button>
+        <button className={styles.button} onClick={() => router.push('/Page/Gamepage')}>PVC</button>
         <button className={styles.button} onClick={() => alert('Store')}>Store</button>
         <button className={styles.button} onClick={() => alert('Quit')}>Community</button>
         <button className={styles.button} onClick={() => confirm("Quit?") && router.push('/')}>Quit</button>
