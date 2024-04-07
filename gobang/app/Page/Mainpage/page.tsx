@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from './mainpage.module.css';
 import mainimage from '../../../public/2.png';
 import playericon from '../../../public/meme.png';
+import Chatroom from '../../Component/Popup//Chatroom';
 import { useRouter } from 'next/navigation';
 
 export default function MainPage() {
@@ -26,6 +27,7 @@ export default function MainPage() {
         <button className={styles.button} onClick={() => alert('Quit')}>Community</button>
         <button className={styles.button} onClick={() => confirm("Quit?") && router.push('/')}>Quit</button>
         <div className={styles.version}>V0.0.0</div>
+        <Chatroom/>
         </body>
     );
 }
