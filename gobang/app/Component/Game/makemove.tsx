@@ -1,6 +1,7 @@
 import  checkWinner  from "./checkwinner";
 
-export default function makeMove(board: number[][], row: number, col: number, player: number): number | null {
+
+export default function makeMove(board: number[][], setBoard: any, row: number, col: number, player: number): number | null {
     // Check if the move is valid
     if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || board[row][col] !== 0) {
       throw new Error('Invalid move');
@@ -8,6 +9,7 @@ export default function makeMove(board: number[][], row: number, col: number, pl
   
     // Place the piece
     board[row][col] = player;
+    setBoard((board:any) => board.map((r:any, i:any) => r.map((c:any, j:any) => i === row && j === col ? player : c)));
   
     // Check for a winner
     const winner = checkWinner(board);

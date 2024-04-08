@@ -2,7 +2,6 @@
 import styles from './gamepage.module.css';
 import Game from '@/app/Component/Game/Game';
 import { useRouter } from 'next/navigation';
-import { Router } from 'next/router';
 
 export default function Gamepage(){
     const router = useRouter();
