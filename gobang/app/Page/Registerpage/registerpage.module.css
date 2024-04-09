@@ -106,6 +106,7 @@ display: flex;
     color: white;
     margin-left: 38.5%;
     height: 50px;
-    width : 23%;
+    max-width: 400px;
+    top: 200px;
 }
 

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import styles from './game.module.css';
 import io from 'Socket.IO-client';
 import { useRouter } from 'next/navigation';
-import { rejects } from 'assert';
+import { set } from 'mongoose';
+
 
 let socket: any;
 
@@ -29,6 +30,22 @@ export default function Game() {
                 socket.on('move_on_board', ({ board }: { board: number[][] }) => {
                     setBoard(board);
                 });
+                socket.on('retract_request_other', () => {
+                    console.log('Do you want to accept the regret request?');
+                    if (confirm("Do you want to accept the regret request?")) {
+                        socket.emit('retract_response_answer', { response: true });
+                    } else {
+                        socket.emit('retract_response_answer', { response: false });
+                    }
+                });
+                socket.on('You have been matched with another player', () => {
+                    console.log('You have been matched with another player');
+                    if(confirm('You have been matched with another player')) {
+                        socket.emit('confirmation', { response: true });
+                    }else {
+                        socket.emit('confirmation', { response: false });
+                    }
+                });
             }
         })();
     }, []);
@@ -50,6 +67,10 @@ export default function Game() {
                     }
                     setWinner(1);
                 });
+                socket.on('not_your_turn', () => {
+                    console.log('Not your turn');
+                    alert('Not your turn');
+                });
             };
         } catch (error) {
             alert((error as Error).message);
@@ -62,33 +83,44 @@ export default function Game() {
     }
 
     const handleRegretClick = () => {
-        socket.emit('retractrequest');
-        socket.on('retract', ({ currentPlayer, nextPlayer }: { currentPlayer: number, nextPlayer: number }) => {
-            if (handleRegretResponse()) {
-                console.log(currentPlayer, nextPlayer);
-                if (currentPlayer === 1) {
-                    console.log('Player 1 regrets');
-                    alert('Player 1 regrets');
-                } else if (currentPlayer === 2) {
-                    console.log('Player 2 regrets');
-                    alert('Player 2 regrets');
+        try {
+            socket.emit('retract_request');
+
+            socket.on('retractresponse', ({ response }: { response: boolean }) => {
+                console.log(response);
+                if (response) {
+                    console.log('Regret accepted');
+                    socket.emit('retract');
+                } else {
+                    console.log('Regret denied');
                 }
-            }
-        });
+            });
+        }
+        catch (error) {
+            alert((error as Error).message);
+        }
     }
 
-    const handleRegretResponse = () => {
-        socket.on('retractrequestother', () => {
-            if(window.confirm("Do you want to accept the regret request?")){
-                socket.emit('retractresponse', {response: true});
-                return true;
-            }else{
-                socket.emit('retractresponse', {response: false});
-                return false;
-            }
-        });
-        return false;
+    const handleSurrenderClick = () => {
+        try {
+            socket.emit('surrender');
+            socket.on('surrenderwinner', ({ winner }: { winner: number }) => {
+                console.log(winner);
+                if (winner === 1) {
+                    console.log('Player 1 wins');
+                    alert('Player 1 wins');
+                    setWinner(0);
+                } else if (winner === 2) {
+                    console.log('Player 2 wins');
+                    alert('Player 2 wins');
+                    setWinner(0);
+                }
+            });
+        } catch (error) {
+            alert((error as Error).message);
+        }
     }
+
     return (
         <div>
             {board.map((row, y) => (
@@ -104,7 +136,7 @@ export default function Game() {
                 <button className={styles.bottom_left_buttons1_button} onClick={handleRegretClick}>Regret</button>
             </div>
             <div className={styles.bottom_left_buttons2}>
-                <button className={styles.bottom_left_buttons2_button}>Surrender</button>
+                <button className={styles.bottom_left_buttons2_button} onClick={handleSurrenderClick}>Surrender</button>
             </div>
 
             <div className={styles.bottom_left_buttons3}>

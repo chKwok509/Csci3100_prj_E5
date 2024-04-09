@@ -1,4 +1,5 @@
 import { Server } from 'Socket.IO'
+import handlePVPQueue from './match';
 
 class game {
   board: number[][];
@@ -107,6 +108,7 @@ class game {
     }
   }
 }
+
 const GobangGame = new game();
 let playersConnected = 0;
 const SocketHandler = (req: any, res: any) => {
@@ -123,6 +125,11 @@ const SocketHandler = (req: any, res: any) => {
 
     io.on('connection', (socket) => {
       console.log("Client connected with id: " + socket.id)
+      socket.on('joinQueue', () => {
+        console.log('Player joined the queue with id: ' + socket.id)
+        handlePVPQueue(socket)
+      })
+      
       playersConnected++
       if (playersConnected === 1) {
         GobangGame.resetgame()
@@ -147,7 +154,7 @@ const SocketHandler = (req: any, res: any) => {
             player1.emit('move_on_board', { board })
             player2.emit('move_on_board', { board })
           }
-        } else if (socket === player2 && GobangGame.getCurrentPlayer() === 2)
+        } else if (socket === player2 && GobangGame.getCurrentPlayer() === 2){
           nextPlayer = GobangGame.makeMove(y, x, 2)
           if (nextPlayer === 3) {
             player1.emit('winner', { winner: 1 })
@@ -161,19 +168,45 @@ const SocketHandler = (req: any, res: any) => {
             player1.emit('move_on_board', { board })
             player2.emit('move_on_board', { board })
           }
-        });
-      socket.on('retractrequest', () => {
+        }else if (socket === player1 && GobangGame.getCurrentPlayer() === 2){
+          player1.emit('not_your_turn')
+        }else if (socket === player2 && GobangGame.getCurrentPlayer() === 1){
+          player2.emit('not_your_turn')
+        }})
+
+      socket.on('retract_request', () => {
         if (socket === player1) {
-          player2.emit('retractrequestother')
+          console.log('retract request2')
+          player2.emit('retract_request_other')
         } else if (socket === player2) {
-          player1.emit('retractrequestother')
+          console.log('retract request1')
+          player1.emit('retract_request_other')
         }
       })
-      socket.on('retractresponse', ({response}) => {
-        if(response){
-          GobangGame.retractrequest(GobangGame.getCurrentPlayer(),nextPlayer)
+
+      socket.on('retract_response_answer', ({ response }) => {
+        if (socket === player1){
+          player2.emit('retract_response', { response })
+        }
+        else if (socket === player2){
+          player1.emit('retract_response', { response })
         }
       })
+
+      socket.emit('retract', () => {
+        return GobangGame.retractrequest(GobangGame.getCurrentPlayer(), nextPlayer)
+      })
+
+      socket.on('surrender', () => {
+        if (socket === player1) {
+          player1.emit('surrenderwinner', { winner: 2 })
+          player2.emit('surrender', { winner: 2 })
+        } else if (socket === player2) {
+          player1.emit('surrenderwinner', { winner: 1 })
+          player2.emit('surrenderwinner', { winner: 1 })
+        }
+      })
+
       socket.on('disconnect', () => {
         console.log("Client disconnected with id: " + socket.id)
         playersConnected--
@@ -182,7 +215,8 @@ const SocketHandler = (req: any, res: any) => {
           player2 = null
           res.end()
         }
-      });
+      })
+
     });
   }
   res.end()

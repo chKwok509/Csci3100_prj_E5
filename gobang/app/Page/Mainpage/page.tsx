@@ -7,6 +7,7 @@ import Chatroom from '../../Component/Popup//Chatroom';
 import { useRouter } from 'next/navigation';
 
 
+
 export default function MainPage() {
     const router = useRouter();
 
@@ -24,7 +25,7 @@ export default function MainPage() {
             </div>
         <br></br>
         <button className={styles.button} onClick={() => window.location.href = '/Page/Gamepage'}>PVP</button>
-        <button className={styles.button} onClick={() => router.push('/Page/Gamepage')}>PVC</button>
+        <button className={styles.button} >PVC</button>
         
         <button className={styles.button} onClick={() => router.push('/Page/Storepage')}>Store</button>
         <button className={styles.button} onClick={() => alert('Quit')}>Community</button>
