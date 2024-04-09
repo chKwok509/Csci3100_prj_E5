@@ -1,5 +1,3 @@
-
-
 export default function checkWinner(board: number[][]): number | null {
     const directions = [
         [0, -1], // 上
