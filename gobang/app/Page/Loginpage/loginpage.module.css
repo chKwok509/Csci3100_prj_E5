@@ -56,6 +56,7 @@
     margin-top: 8px;
     font-size: 14px;
     font-weight: 300;
+    font-family: 'Papyrus', Fantasy;
   }
   
   .input::placeholder {
@@ -65,13 +66,16 @@
   .button {
     margin-top: 50px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: rgba(255,255,255,0.27);
     color: #080710;
     padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
+  }
+  .button:hover {
+    background-color: rgba(255,255,255,0.47);
   }
   
   .social {
@@ -81,15 +85,17 @@
   }
   
   .social_div {
-    width: 200px;
+    width: 370px;
+    height: 50px;
+    font-size : 20px;
     border-radius: 10px;
     padding: 10px 10px 10px 5px;
     background-color: rgba(255,255,255,0.27);
     color: #000000;
     text-align: center;
     font-family: 'Papyrus', Fantasy;
+    cursor: pointer;
   }
-  
   .social_div:hover {
     background-color: rgba(255,255,255,0.47);
   }
