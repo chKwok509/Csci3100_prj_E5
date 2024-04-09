@@ -42,10 +42,10 @@ export default function LoginPage() {
             <form className={styles.form} onSubmit={handleLogin}>
                 <h3 className={styles.form_h3}>Let'sBang</h3>
 
-                <label htmlFor="username" className={styles.label}>Email</label>
+                <label htmlFor="username" className={styles.label}>Name</label>
                 <input
                     type="text"
-                    placeholder="Email or Phone"
+                    placeholder="Name"
                     required
                     id="username"
                     className={styles.input}
@@ -67,7 +67,6 @@ export default function LoginPage() {
                 <input type="submit" className={styles.button} value="Login" />
                 <div className={styles.social}>
                     <button className={styles.social_div} onClick={() => router.push('./Registerpage')}>Register Here</button>
-                    <div className={styles.social_div}>Forgot Your Password</div>
                     <br></br>
                 </div>
             </form>
