@@ -6,8 +6,10 @@ import playericon from '../../../public/meme.png';
 import Chatroom from '../../Component/Popup//Chatroom';
 import { useRouter } from 'next/navigation';
 
+
 export default function MainPage() {
     const router = useRouter();
+
     return (
         <body className={styles.body}>
             <div className={styles.center_image}>
@@ -23,7 +25,8 @@ export default function MainPage() {
         <br></br>
         <button className={styles.button} onClick={() => window.location.href = '/Page/Gamepage'}>PVP</button>
         <button className={styles.button} onClick={() => router.push('/Page/Gamepage')}>PVC</button>
-        <button className={styles.button} onClick={() => alert('Store')}>Store</button>
+        
+        <button className={styles.button} onClick={() => router.push('/Page/Storepage')}>Store</button>
         <button className={styles.button} onClick={() => alert('Quit')}>Community</button>
         <button className={styles.button} onClick={() => confirm("Quit?") && router.push('/')}>Quit</button>
         <div className={styles.version}>V0.0.0</div>
