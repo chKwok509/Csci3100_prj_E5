@@ -13,16 +13,7 @@ export default function Gamepage(){
                 <p>Player 2</p>
                 <div id="timer">00:00:00</div>
             </div>
-            <div className={styles.bottom_left_buttons1}>
-                <button className={styles.bottom_left_buttons1_button}>Regret</button>
-            </div>
-            <div className={styles.bottom_left_buttons2}>
-                <button className={styles.bottom_left_buttons2_button}>Surrender</button>
-            </div>
-
-            <div className={styles.bottom_left_buttons3}>
-                <button className={styles.bottom_left_buttons3_button} onClick={() => router.push('./Mainpage')}>Exit</button>
-            </div>
+            
             
             <div className={styles.chatroom}>
                 <div className={styles.chat_history}>
