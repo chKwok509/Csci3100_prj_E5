@@ -7,6 +7,7 @@ import playericon from '../../../public/meme.png';
 import { useRouter } from 'next/navigation';
 
 
+
 export default function StorePage() {
     const router = useRouter();
     const [coin,setcoin]=useState(777);
@@ -17,7 +18,14 @@ export default function StorePage() {
     const handleBuyItem=(item:string)=>{
       if(coin>100 && !(owned.includes(item))){
         setcoin(coin-100);
-        setowned(owned.push(item));
+        owned.push(item);
+        setowned(owned);
+      }
+      else if(owned.includes(item)){
+        alert('already own item')
+      }
+      else if(coin<100){
+        alert('not enougth money')
       }
     }
     return (
