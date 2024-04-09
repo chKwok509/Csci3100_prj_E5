@@ -82,17 +82,23 @@ margin-top:500px;
 display: flex;
 }
 .submitbon{
-    color: white;
+    color: black;
     background-color: gray;
     opacity: 0.9;
+    font-size: 20px;
     cursor: pointer;
     font-family: 'Papyrus', Fantasy;
     height: 50px;
+    width: 100%;
+}
+.submitbon:hover{
+    background-color: rgba(255,255,255,0.47);
 }
 .go{
-    margin-top: 700px;
+    margin-top: 500px;
     height: 50px;
     width: 23%;
+    font-size: 20px;
     position: absolute;
     background-color: gray;
     font-family: 'Papyrus', Fantasy;
