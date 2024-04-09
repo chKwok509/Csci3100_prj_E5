@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("/wallpaper.jpg"); 
+    background-image: url("/public/wallpaper.jpeg"); 
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -66,10 +66,10 @@
 
 .boardpost {
     position: absolute;
-    top: 125px;
-    left: 400px;
-    width: 855px;
-    height: 855px;
+    top: 10px;
+    left: 300px;
+    width: 840px;
+    height: 650px;
     border: 2px solid gery;
     background-color: black;
     border: 2px solid rgb(138, 135, 135);
@@ -82,8 +82,8 @@
     grid-template-columns: repeat(19, 1fr);
     grid-template-rows: repeat(19, 1fr);
     gap: 0px;
-    width: 800px;
-    height: 800px;
+    width: 850px;
+    height: 850px;
     border: 2px solid gery;
     background-color: black;
     border: 2px solid rgb(138, 135, 135);

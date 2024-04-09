@@ -1,5 +1,5 @@
 .button{
-    background-color: #4CAF50;
+    background-color: grey;
     border: none;
     color: white;
     padding: 5px 5px 5px 5px;
@@ -8,33 +8,30 @@
     display: inline-block;
     font-size: 20px;
     cursor: pointer;
-    height: 40px;
+    height: 30px;
     width: 40px;
     margin: 2px 2px 2px 2px;
 }
 .bottom_left_buttons1 {
     position: absolute;
-    display: flex;
     bottom: 50px;
-    left: 10px;
+    left: 5px;
     width: 10%;
     max-width: 125px;
     min-width: 100px;
 }
 .bottom_left_buttons2 {
     position: absolute;
-    display: flex;
     bottom: 50px;
-    left: 150px;
-    width: 20%;
+    left: 140px;
+    width: 11%;
     max-width: 200px;
     min-width: 150px;
 }
 .bottom_left_buttons3 {
     position: absolute;
-    display: flex;
     bottom: 140px;
-    left: 15px;
+    left: 10px;
     width: 20%;
     max-width: 350px;
     min-width: 150px;

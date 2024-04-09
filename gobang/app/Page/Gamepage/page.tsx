@@ -2,6 +2,8 @@
 import styles from './gamepage.module.css';
 import Game from '@/app/Component/Game/Game';
 import { useRouter } from 'next/navigation';
+import Timer from '@/app/Component/Game/timer';
+import SystemTime from '@/app/Component/Game/systemtime';
 
 export default function Gamepage(){
     const router = useRouter();
@@ -11,7 +13,8 @@ export default function Gamepage(){
                 <p>Player 1</p>
                 <p>vs</p>
                 <p>Player 2</p>
-                <div id="timer">00:00:00</div>
+                <SystemTime/>
+                <Timer/>
             </div>
             
             
