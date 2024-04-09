@@ -35,12 +35,7 @@ export default function StorePage() {
             </div>
             
     <div className={styles.container}>
-      <h1 className={styles.title}>Welcome to the Store</h1>
-      <div className={styles.imageContainer}>
-      </div>
-      <p className={styles.description}>Browse and purchase items from our store.</p>
-      <div>Remaining coins: {coin}</div>
-      {/* Add your store content here */}
+      
       <div className={styles.storeitems}>
       {items.map((item) => (
             <div key={item}>
