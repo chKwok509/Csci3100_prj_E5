@@ -36,6 +36,8 @@ export default function StorePage() {
             
     <div className={styles.container}>
       
+      <div>Remaining coins: {coin}</div>
+      {/* Add your store content here */}
       <div className={styles.storeitems}>
       {items.map((item) => (
             <div key={item}>
