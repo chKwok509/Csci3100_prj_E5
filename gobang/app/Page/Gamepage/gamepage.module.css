@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("/wallpaper.jpg"); 
+    background-image: url("/public/wallpaper.jpeg"); 
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -31,7 +31,7 @@
 .bottom_left_buttons1 {
     position: absolute;
     bottom: 50px;
-    left: 10px;
+    left: 5px;
     width: 10%;
     max-width: 125px;
     min-width: 100px;
@@ -39,15 +39,15 @@
 .bottom_left_buttons2 {
     position: absolute;
     bottom: 50px;
-    left: 150px;
-    width: 20%;
+    left: 140px;
+    width: 11%;
     max-width: 200px;
     min-width: 150px;
 }
 .bottom_left_buttons3 {
     position: absolute;
     bottom: 140px;
-    left: 15px;
+    left: 10px;
     width: 20%;
     max-width: 350px;
     min-width: 150px;
@@ -103,10 +103,10 @@
 
 .boardpost {
     position: absolute;
-    top: 125px;
-    left: 400px;
-    width: 855px;
-    height: 855px;
+    top: 10px;
+    left: 300px;
+    width: 840px;
+    height: 650px;
     border: 2px solid gery;
     background-color: black;
     border: 2px solid rgb(138, 135, 135);
@@ -119,8 +119,8 @@
     grid-template-columns: repeat(19, 1fr);
     grid-template-rows: repeat(19, 1fr);
     gap: 0px;
-    width: 800px;
-    height: 800px;
+    width: 850px;
+    height: 850px;
     border: 2px solid gery;
     background-color: black;
     border: 2px solid rgb(138, 135, 135);
