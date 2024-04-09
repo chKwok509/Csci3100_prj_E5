@@ -27,7 +27,7 @@ export default function MainPage() {
         <button className={styles.button} onClick={() => router.push('/Page/Gamepage')}>PVC</button>
         
         <button className={styles.button} onClick={() => router.push('/Page/Storepage')}>Store</button>
-        <button className={styles.button} onClick={() => alert('Quit')}>Community</button>
+        <button className={styles.button} onClick={() => router.push('/Page/Communitypage')}>Community</button>
         <button className={styles.button} onClick={() => confirm("Quit?") && router.push('/')}>Quit</button>
         <div className={styles.version}>V0.0.0</div>
         <Chatroom/>
