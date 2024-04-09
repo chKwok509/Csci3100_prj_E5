@@ -14,7 +14,12 @@ export default function StorePage() {
       </div>
       <div className={styles.container}>
         <div className={styles.boxRow}>
-          <div className={styles.box}><Image src={skin} alt="SVG Image" className={styles.skins}/></div>
+          <div className={styles.box}>
+            <div className={styles.skins}><Image src={skin} alt="SVG Image" width={160} height={160} /></div>
+            <p className={styles.description}>Green Board</p>
+            <p className={styles.description}>Price: $100</p>
+      
+          </div>
           <div className={styles.box}></div>
           <div className={styles.box}></div>
           <div className={styles.box}></div>

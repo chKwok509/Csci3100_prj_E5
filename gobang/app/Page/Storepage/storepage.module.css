@@ -45,14 +45,21 @@
     background-color: #d3d3d3;
     border-radius: 5px;
     margin: 10px;
+  
 }
 
 .skins{
-    width:200px;
-    height:200px;
+    
     display: flex;
     justify-content: center;
         /* Horizontally center the image */
     align-items: center;
         /* Vertically center the image */
+        height: 75%;
+}
+
+.description{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
