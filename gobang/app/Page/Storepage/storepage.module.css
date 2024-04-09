@@ -23,3 +23,36 @@
         /* Push the image to the top */
     /* Set the maximum height for the image */
 }
+
+.container {
+    width: 80%;
+    /* Set the desired width of the box */
+    height: 100%;
+    /* Set the desired height of the box */
+    border-radius: 20px;
+    background-color: rgba(240, 240, 240, 0.5);
+    padding: 20px;
+}
+
+.boxRow {
+    display: flex;
+}
+
+.box {
+    flex: 1;
+    height: 260px;
+    /* Adjust the height of each box as needed */
+    background-color: #d3d3d3;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.skins{
+    width:200px;
+    height:200px;
+    display: flex;
+    justify-content: center;
+        /* Horizontally center the image */
+    align-items: center;
+        /* Vertically center the image */
+}
