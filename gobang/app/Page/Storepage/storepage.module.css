@@ -1,9 +1,9 @@
 .body {
     display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
     margin: 0px;
     font-family: Arial, sans-serif;
     background-image: url("/background2.png");
@@ -18,8 +18,143 @@
     /* Set the maximum width for the image */
     max-height: 100%;
     margin-top: auto;
-        /* Push the image to the top */
-        margin-bottom: auto;
-        /* Push the image to the top */
+    /* Push the image to the top */
+    margin-bottom: auto;
+    /* Push the image to the top */
     /* Set the maximum height for the image */
+}
+
+.container {
+    width: 80%;
+    /* Set the desired width of the box */
+    height: 100%;
+    /* Set the desired height of the box */
+    border-radius: 20px;
+    background-color: rgba(240, 240, 240, 0.5);
+    padding: 20px;
+}
+
+.boxRow {
+    display: flex;
+}
+
+.box {
+    flex: 1;
+    height: 280px;
+    /* Adjust the height of each box as needed */
+    background-color: #d3d3d3;
+    border-radius: 5px;
+    margin: 10px;
+
+}
+
+.skins {
+
+    display: flex;
+    justify-content: center;
+    /* Horizontally center the image */
+    align-items: center;
+    /* Vertically center the image */
+    height: 70%;
+}
+
+.description {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px
+        /* Optional: Adjust the height based on your layout */
+}
+
+.buyButton {
+    display: inline-block;
+    padding: 5px 24px;
+    background-color: #ff4081;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.buyButton:hover {
+    background-color: #e91e63;
+}
+
+.owned {
+    display: inline-block;
+    padding: 5px 24px;
+    background-color: #00b330;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.owned:hover {
+    background-color: #00b330;
+}
+
+.playerInfo {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: black;
+}
+
+.playerInfo_img {
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.backbutton {
+    background-color: #75aeff;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.backbutton:hover {
+    background-color: #ff4d4d;
+}
+
+.backbutton:focus {
+    outline: 2px solid #000000;
+    outline-offset: 2px;
+}
+
+.remainingCoins {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #000000;
+    padding: 6px 12px;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    /* Add any other desired text styles */
 }
