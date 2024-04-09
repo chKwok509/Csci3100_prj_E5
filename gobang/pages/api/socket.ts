@@ -1,22 +1,21 @@
 import { Server } from 'Socket.IO'
 
 class game {
-  player1: 1;
-  player2: 2;
   board: number[][];
   currentPlayer: number;
   constructor() {
     this.board = Array(19).fill(0).map(() => Array(19).fill(0));
     this.currentPlayer = 1;
   }
-  makeMove(row: number, col: number) {
+  makeMove(row: number, col: number, player: number) {
     // Check if the move is valid
     if (row < 0 || row >= this.board.length || col < 0 || col >= this.board[0].length || this.board[row][col] !== 0) {
       throw new Error('Invalid move');
     }
-
+    console.log(row, col, player);
     // Place the piece
-    this.board[row][col] = this.currentPlayer;
+    this.setCurrentPlayer(player)
+    const board = this.updateBoard(this.board, row, col, this.currentPlayer);
 
     // Check for a winner
     const winner = this.checkWinner();
@@ -29,6 +28,7 @@ class game {
 
     // No winner, so change the turn to the other player
     this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+    console.log(this.currentPlayer);
     return this.currentPlayer;
   }
   checkWinner(): number | null {
@@ -75,8 +75,19 @@ class game {
   getBoard() {
     return this.board;
   }
+  getCurrentPlayer() {
+    return this.currentPlayer;
+  }
+  setCurrentPlayer(player: number) {
+    this.currentPlayer = player;
+  }
+  resetgame() {
+    this.board = Array(19).fill(0).map(() => Array(19).fill(0));
+    this.currentPlayer = 1;
+  }
 }
 const GobangGame = new game();
+let playersConnected = 0;
 const SocketHandler = (req: any, res: any) => {
   if (res.socket.server.io) {
     console.log('Socket is already running')
@@ -91,29 +102,32 @@ const SocketHandler = (req: any, res: any) => {
 
     io.on('connection', (socket) => {
       console.log("Client connected with id: " + socket.id)
+      playersConnected++
+      if (playersConnected === 1) {
+        GobangGame.resetgame()
+      }
       if (!player1) {
         player1 = socket
       } else if (!player2) {
         player2 = socket
       }
       socket.on('move', ({ Xpos, Ypos }) => {
-        console.log('Move made at', Xpos, Ypos)
-        if (socket === player1 && GobangGame.currentPlayer === GobangGame.player1) {
-          nextPlayer = GobangGame.makeMove(Ypos, Xpos)
+        if (socket === player1 && GobangGame.getCurrentPlayer() === 1) {
+          nextPlayer = GobangGame.makeMove(Ypos, Xpos, 1)
           if (nextPlayer === 3) {
-            player1.emit('winner', { winner: 1 })
-            player2.emit('winner', { winner: 1 })
+            player1.emit('winplayer', { winplayer: 1 })
+            player2.emit('winplayer', { winplayer: 1 })
           } else if (nextPlayer === 4) {
-            player1.emit('winner', { winner: 2 })
-            player2.emit('winner', { winner: 2 })
+            player1.emit('winplayer', { winplayer: 2 })
+            player2.emit('winplayer', { winplayer: 2 })
           } else {
-            GobangGame.updateBoard(GobangGame.getBoard(), Xpos, Ypos, GobangGame.player1)
             const board = GobangGame.getBoard()
-            GobangGame.currentPlayer = GobangGame.player2
-            player2.emit('move', { Xpos, Ypos, board })
+            GobangGame.setCurrentPlayer(nextPlayer)
+            player1.emit('move_on_board', { board })
+            player2.emit('move_on_board', { board })
           }
-        } else if (socket === player2 && GobangGame.currentPlayer === 2)
-          nextPlayer = GobangGame.makeMove(Ypos, Xpos)
+        } else if (socket === player2 && GobangGame.getCurrentPlayer() === 2)
+          nextPlayer = GobangGame.makeMove(Ypos, Xpos, 2)
           if (nextPlayer === 3) {
             player1.emit('winner', { winner: 1 })
             player2.emit('winner', { winner: 1 })
@@ -121,14 +135,20 @@ const SocketHandler = (req: any, res: any) => {
             player1.emit('winner', { winner: 2 })
             player2.emit('winner', { winner: 2 })
           } else {
-            GobangGame.updateBoard(GobangGame.getBoard(), Xpos, Ypos, GobangGame.player2)
             const board = GobangGame.getBoard()
-            GobangGame.currentPlayer = 1
-            player1.emit('move', { Xpos, Ypos, board })
+            GobangGame.setCurrentPlayer(nextPlayer)
+            player1.emit('move_on_board', { board })
+            player2.emit('move_on_board', { board })
           }
         });
       socket.on('disconnect', () => {
         console.log("Client disconnected with id: " + socket.id)
+        playersConnected--
+        if (playersConnected === 0) {
+          player1 = null
+          player2 = null
+          res.end()
+        }
       });
     });
   }

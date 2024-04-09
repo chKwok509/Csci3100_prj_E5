@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './game.module.css';
 import io from 'Socket.IO-client';
-import { set } from 'mongoose';
+
 let socket: any;
 
 const initialBoardState: number[][] = Array(19).fill(0).map(() => Array(19).fill(0));
@@ -23,7 +23,7 @@ export default function Game() {
                 socket.on('connect', () => {
                     console.log('Connected to server with id: ' + socket.id)
                 });
-                socket.on('move', ({x, y, board}: {x: number, y: number, board: number[][]}) => {
+                socket.on('move_on_board', ({board}: { board: number[][]}) => {
                    setBoard(board); 
                 });
             }
@@ -33,11 +33,22 @@ export default function Game() {
     const handleCellClick = (x: number, y: number) => {
         try {
             if(winner === 0){
+                console.log('Move made at', x, y);
                 setX(x);
                 setY(y);
+                console.log('Move made first at', Xpos, Ypos);
                 socket.emit('move', { Xpos, Ypos });
-                socket.on('winner', ({ winner }: { winner: number }) => {
-                    setWinner(winner);
+                socket.on('winplayer', ({ winplayer }: { winplayer: number }) => {
+                    console.log(winplayer)
+
+                    if (winplayer === 1) {
+                        console.log('Player 1 wins');
+                        alert('Player 1 wins');
+                    } else if (winplayer === 2) {
+                        console.log('Player 2 wins');
+                        alert('Player 2 wins');
+                    }
+                    setWinner(1);
                 });
             };
         } catch (error) {
