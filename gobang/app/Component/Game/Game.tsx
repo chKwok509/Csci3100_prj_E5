@@ -3,7 +3,6 @@ import styles from './game.module.css';
 import io from 'socket.io-client';
 import { useRouter } from 'next/navigation';
 
-
 let socket: any;
 let i = 0;
 
@@ -71,6 +70,18 @@ export default function Game() {
                     }
                     setWinner(1);
                 });
+                socket.on('surrenderwinner', ({ winner }: { winner: number }) => {
+                    console.log(winner);
+                    if (winner === 1) {
+                        console.log('Player 1 wins');
+                        alert('Player 1 wins');
+                        setWinner(0);
+                    } else if (winner === 2) {
+                        console.log('Player 2 wins');
+                        alert('Player 2 wins');
+                        setWinner(0);
+                    }
+                });
             }
         })();
     }, []);
@@ -80,21 +91,6 @@ export default function Game() {
             if (winner === 0) {
                 console.log('Move made at', x, y);
                 socket.emit('move', { x, y });
-                socket.on('winplayer', ({ winplayer }: { winplayer: number }) => {
-                    console.log(winplayer)
-                    if (winplayer === 1) {
-                        console.log('Player 1 wins');
-                        alert('Player 1 wins');
-                    } else if (winplayer === 2) {
-                        console.log('Player 2 wins');
-                        alert('Player 2 wins');
-                    }
-                    setWinner(1);
-                });
-                socket.on('not_your_turn', () => {
-                    console.log('Not your turn');
-                    alert('Not your turn');
-                });
             };
         } catch (error) {
             alert((error as Error).message);
@@ -118,18 +114,6 @@ export default function Game() {
     const handleSurrenderClick = () => {
         try {
             socket.emit('surrender');
-            socket.on('surrenderwinner', ({ winner }: { winner: number }) => {
-                console.log(winner);
-                if (winner === 1) {
-                    console.log('Player 1 wins');
-                    alert('Player 1 wins');
-                    setWinner(0);
-                } else if (winner === 2) {
-                    console.log('Player 2 wins');
-                    alert('Player 2 wins');
-                    setWinner(0);
-                }
-            });
         } catch (error) {
             alert((error as Error).message);
         }
@@ -147,9 +131,20 @@ export default function Game() {
         setIsOpen(false);
     };
 
-    function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
-        throw new Error('Function not implemented.');
-    }
+    const handleInputChange = (event) => {
+        setInputText(event.target.value);
+    };
+
+    const handleSendClick = () => {
+        if (inputText.trim() !== '') {
+            const newMessage = {
+                text: inputText,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            };
+            setChatHistory([...chatHistory, newMessage]);
+            setInputText('');
+        }
+    };
 
     return (
         <div>
@@ -206,5 +201,3 @@ export default function Game() {
         </div>
     );
 }
-
-//Fix1
