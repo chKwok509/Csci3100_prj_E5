@@ -1,0 +1,48 @@
+'use client'
+import React, { useState } from 'react';
+import styles from './communitypage.module.css';
+import Image from 'next/image';
+import playericon from '../../../public/meme.png';
+import Chatroom from '@/app/Component/Popup/Chatroom';
+import mainimage from '../../../public/community.png';
+import { useRouter } from 'next/navigation';
+
+
+
+export default function CommunityPage() {
+    const router = useRouter();
+    const [friends, setfriends] = useState<string[]>(['Bob', 'Peter', 'Mary', 'Oscar'])
+
+
+    return (
+        <body className={styles.body}>
+            <div className={styles.playerInfo}>
+                <Image src={playericon} alt="Player Icon" className={styles.playerInfo_img} width={600} height={120} />
+                <div>
+                    <p className={styles.playerID}>ID: 12345</p>
+                    <p className={styles.playerName}>Wilson Lui</p>
+                </div>
+            </div>
+            <div className={styles.center_image}>
+                <Image src={mainimage} alt="Main Image" className={styles.center_image_img} />
+            </div>
+
+            <div className={styles.container}>
+                <h1 className={styles.title}>Welcome to the Community</h1>
+                <div className={styles.imageContainer}>
+                </div>
+                <p className={styles.description}>You can manage your frends and view record here.</p>
+                <div className={styles.storeitems}>
+                    {friends.map((friend) => (
+                        <div key={friend}>
+                            {friend}
+                            <button className={styles.buybutton} onClick={() => { confirm('remove ' + friend + ' ?') && setfriends(friends.filter(a => a !== friend)) }}>Remove friend</button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <button className={styles.backbutton} onClick={() => router.back()}>Back</button>
+
+        </body>
+    );
+}
