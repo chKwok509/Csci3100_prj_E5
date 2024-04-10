@@ -147,3 +147,5 @@ export default function Game() {
         </div>
     );
 }
+
+//Fix1
