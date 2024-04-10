@@ -82,6 +82,10 @@ export default function Game() {
                         setWinner(0);
                     }
                 });
+                socket.on('noretract', () => {
+                    console.log('Not correct timing');
+                    alert('U can not retract now');
+                })
             }
         })();
     }, []);

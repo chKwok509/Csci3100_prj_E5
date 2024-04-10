@@ -209,12 +209,18 @@ const SocketHandler = (req: any, res: any) => {
       })
 
       socket.on('retract_request', () => {
-        if (socket === player1) {
+        if (socket === player1 && GobangGame.getCurrentPlayer() === 2) {
           console.log('retract request2')
           player2.emit('retract_request_other')
-        } else if (socket === player2) {
+        } else if (socket === player2 && GobangGame.getCurrentPlayer() === 1) {
           console.log('retract request1')
           player1.emit('retract_request_other')
+        }else if (socket === player1 && GobangGame.getCurrentPlayer() === 1){
+          console.log('Can not retract')
+          player1.emit('noretract')
+        }else if (socket === player2 && GobangGame.getCurrentPlayer() === 2){
+          console.log('Can not retract')
+          player2.emit('noretract')
         }
       })
 
