@@ -13,26 +13,26 @@
     margin: 2px 2px 2px 2px;
 }
 .bottom_left_buttons1 {
-    position: absolute;
-    bottom: 50px;
-    left: 5px;
-    width: 10%;
+    position: relative;
+    bottom: 150px;
+    left: -300px;
+    width: 15%;
     max-width: 125px;
     min-width: 100px;
 }
 .bottom_left_buttons2 {
     position: absolute;
-    bottom: 50px;
-    left: 140px;
-    width: 11%;
+    bottom: 60px;
+    left: -160px;
+    width: 17%;
     max-width: 200px;
     min-width: 150px;
 }
 .bottom_left_buttons3 {
     position: absolute;
     bottom: 140px;
-    left: 10px;
-    width: 20%;
+    left: -300px;
+    width: 35%;
     max-width: 350px;
     min-width: 150px;
 }
