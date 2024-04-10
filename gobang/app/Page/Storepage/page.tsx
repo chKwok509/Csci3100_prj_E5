@@ -172,7 +172,7 @@ export default function StorePage() {
               <Image src={skin8} alt="SVG Image" width={160} height={160} />
             </div>
             <p className={styles.description}>Missing Texture Board</p>
-            <p className={styles.description}>Price: $2000</p>
+            <p className={styles.description}>Price: $100</p>
             <div className={styles.container2}>
               <button
                 className={`${styles.buyButton} ${owned.includes('MT Board') ? styles.owned : ''}`}
