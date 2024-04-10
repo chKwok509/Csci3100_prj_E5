@@ -131,6 +131,7 @@ const SocketHandler = (req: any, res: any) => {
         handlePVPQueue(socket)
       })
       
+      
       playersConnected++
       if (playersConnected === 1) {
         GobangGame.resetgame()
@@ -140,6 +141,13 @@ const SocketHandler = (req: any, res: any) => {
       } else if (!player2) {
         player2 = socket
       }
+      socket.on('chat', ({ newMessage }) => {
+        if (socket === player1) {
+          player2.emit('chat', ({ newMessage }));
+        } else if (socket === player2) {
+          player1.emit('chat', ({ newMessage }));
+        }
+      })
       socket.on('move', ({ x, y }) => {
         if (socket === player1 && GobangGame.getCurrentPlayer() === 1) {
           nextPlayer = GobangGame.makeMove(y, x, 1)
@@ -233,10 +241,10 @@ const SocketHandler = (req: any, res: any) => {
           res.end()
         }
       })
-
     });
   }
   res.end()
 }
+
 
 export default SocketHandler
