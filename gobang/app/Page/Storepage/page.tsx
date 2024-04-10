@@ -16,12 +16,12 @@ import { useRouter } from 'next/navigation';
 
 export default function StorePage() {
   const router = useRouter();
-  const [coin, setcoin] = useState(777);
+  const [coin, setcoin] = useState(300);
   const [owned, setowned] = useState<string[]>([]);
   const items = ['Board1', 'Board2', 'Board3', 'Board4'];
 
   const handleBuyItem = (item: string) => {
-    if (coin > 100 && !owned.includes(item)) {
+    if (coin >= 100 && !owned.includes(item)) {
       setcoin(coin - 100);
       owned.push(item);
       setowned(owned);
@@ -68,7 +68,7 @@ export default function StorePage() {
               <Image src={skin2} alt="SVG Image" width={160} height={160} />
             </div>
             <p className={styles.description}>Red Board</p>
-            <p className={styles.description}>Price: $50</p>
+            <p className={styles.description}>Price: $100</p>
             <div className={styles.container2}>
               <button
                 className={`${styles.buyButton} ${owned.includes('Red Board') ? styles.owned : ''}`}
@@ -172,7 +172,7 @@ export default function StorePage() {
               <Image src={skin8} alt="SVG Image" width={160} height={160} />
             </div>
             <p className={styles.description}>Missing Texture Board</p>
-            <p className={styles.description}>Price: $2000</p>
+            <p className={styles.description}>Price: $100</p>
             <div className={styles.container2}>
               <button
                 className={`${styles.buyButton} ${owned.includes('MT Board') ? styles.owned : ''}`}
