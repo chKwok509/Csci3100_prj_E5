@@ -80,6 +80,11 @@
     font-weight: normal;
     margin-left: 10px;
     color: gray;
+    position: absolute;
+        right: 0;
+       
+        /* Adjust the width to fit your timestamps */
+        text-align: right;
 }
 
 .message-container {
