@@ -25,12 +25,12 @@
 }
 
 .container {
-    width: 80%;
+    width: 40%;
     /* Set the desired width of the box */
     height: 100%;
     /* Set the desired height of the box */
     border-radius: 20px;
-    background-color: rgba(240, 240, 240, 0.5);
+    background-color: rgba(184, 184, 184, 0.5);
     padding: 20px;
 }
 
@@ -67,3 +67,56 @@
     width: 50px;
     height: 50px;
 }
+
+
+
+/* .container {
+   
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+.storeitems {
+    /* Add spacing and alignment to the store items */
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.friend {
+    display: flex;
+    
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+.friendName {
+    margin-right: 100px;
+}
+
+.removeButton {
+    /* Style for the remove friend button */
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: absolute;
+        right: 530px;
+        /* Adjust the width to fit your timestamps */
+        
+}
+
+.removeButton:hover {
+    background-color: #cc0000;
+}
+
+
+
