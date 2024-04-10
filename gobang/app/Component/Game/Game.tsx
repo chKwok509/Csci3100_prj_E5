@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import styles from './game.module.css';
 import io from 'socket.io-client';
 import { useRouter } from 'next/navigation';
-import Popupconfirm from '../Popup/Confirmation';
 
 
 let socket: any;
@@ -25,13 +24,12 @@ export default function Game() {
                 // @ts-ignore
                 window.connected = true;
                 await fetch('/api/socket')
-                socket = io();
+                socket = io()
                 socket.on('connect', () => {
                     console.log('Connected to server with id: ' + socket.id)
                     socket.emit('join_Queue');
                 });
                 socket.on('move_on_board', ({ board }: { board: number[][] }) => {
-                    console.log('Move made on board');
                     setBoard(board);
                 });
                 socket.on('retract_request_other', () => {
@@ -77,37 +75,26 @@ export default function Game() {
         })();
     }, []);
 
-    const handleInputChange = (event) => {
-        try {
-            setInputText(event.target.value);
-        }
-        catch (error) {
-            alert((error as Error).message);
-        }
-    };
-
-    const handleSendClick = () => {
-        try {
-            if (inputText.trim() !== '') {
-                const newMessage = {
-                    text: inputText,
-                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                };
-                setChatHistory([...chatHistory, newMessage]);
-                socket.emit('chat', { newMessage });
-                setInputText('');
-            }
-        }
-        catch (error) {
-            alert((error as Error).message);
-        }
-    };
-
     const handleCellClick = (x: number, y: number) => {
         try {
             if (winner === 0) {
                 console.log('Move made at', x, y);
                 socket.emit('move', { x, y });
+                socket.on('winplayer', ({ winplayer }: { winplayer: number }) => {
+                    console.log(winplayer)
+                    if (winplayer === 1) {
+                        console.log('Player 1 wins');
+                        alert('Player 1 wins');
+                    } else if (winplayer === 2) {
+                        console.log('Player 2 wins');
+                        alert('Player 2 wins');
+                    }
+                    setWinner(1);
+                });
+                socket.on('not_your_turn', () => {
+                    console.log('Not your turn');
+                    alert('Not your turn');
+                });
             };
         } catch (error) {
             alert((error as Error).message);
@@ -115,13 +102,8 @@ export default function Game() {
     };
 
     const handleExitClick = () => {
-        try {
-            socket.disconnect();
-            router.push('/Page/Mainpage');
-        }
-        catch (error) {
-            alert((error as Error).message);
-        }
+        socket.disconnect();
+        router.push('./Mainpage');
     }
 
     const handleRegretClick = () => {
@@ -164,6 +146,10 @@ export default function Game() {
         socket.emit('retract_response_answer', { response: false });
         setIsOpen(false);
     };
+
+    function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
+        throw new Error('Function not implemented.');
+    }
 
     return (
         <div>
@@ -220,3 +206,5 @@ export default function Game() {
         </div>
     );
 }
+
+//Fix1

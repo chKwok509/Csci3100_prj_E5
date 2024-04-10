@@ -1,4 +1,4 @@
-.button{
+.button {
     background-color: grey;
     border: none;
     color: white;
@@ -12,31 +12,37 @@
     width: 40px;
     margin: 2px 2px 2px 2px;
 }
+
 .bottom_left_buttons1 {
     position: relative;
     bottom: 150px;
-    left: 0px;
+    left: -300px;
     width: 15%;
     max-width: 125px;
     min-width: 100px;
 }
+
 .bottom_left_buttons2 {
     position: absolute;
     bottom: 60px;
-    left: 0px;
+    left: -160px;
     width: 17%;
     max-width: 200px;
     min-width: 150px;
 }
+
 .bottom_left_buttons3 {
     position: absolute;
     bottom: 140px;
-    left: 0px;
+    left: -300px;
     width: 35%;
     max-width: 350px;
     min-width: 150px;
 }
-.bottom_left_buttons1_button, .bottom_left_buttons2_button, .bottom_left_buttons3_button{
+
+.bottom_left_buttons1_button,
+.bottom_left_buttons2_button,
+.bottom_left_buttons3_button {
     padding: 5px;
     font-size: 30px;
     border-radius: 10px;
