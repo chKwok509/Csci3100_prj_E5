@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import styles from './game.module.css';
 import io from 'socket.io-client';
 import { useRouter } from 'next/navigation';
-import { set } from 'mongoose';
+import Popupconfirm from '../Popup/Confirmation';
 
 
 let socket: any;
+let i = 0;
 
 const initialBoardState: number[][] = Array(19).fill(0).map(() => Array(19).fill(0));
 
@@ -15,6 +16,7 @@ export default function Game() {
     const router = useRouter();
     const [inputText, setInputText] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -33,12 +35,8 @@ export default function Game() {
                     setBoard(board);
                 });
                 socket.on('retract_request_other', () => {
-                    console.log('Do you want to accept the regret request?');
-                    if (confirm("Do you want to accept the regret request?")) {
-                        socket.emit('retract_response_answer', { response: true });
-                    } else {
-                        socket.emit('retract_response_answer', { response: false });
-                    }
+                    console.log('Regret request received');
+                    setIsOpen(true);
                 });
                 socket.on('You have been matched with another player', () => {
                     console.log('You have been matched with another player');
@@ -48,7 +46,7 @@ export default function Game() {
                         socket.emit('confirmation', { response: false });
                     }
                 });
-                socket.on('retractresponse', ({ response }: { response: boolean }) => {
+                socket.on('retract_response', ({ response }: { response: boolean }) => {
                     console.log(response);
                     if (response) {
                         console.log('Regret accepted');
@@ -59,6 +57,21 @@ export default function Game() {
                 });
                 socket.on('chat', ({ newMessage }: { newMessage: { text: string, timestamp: string } }) => {
                     console.log(newMessage);
+                });
+                socket.on('not_your_turn', () => {
+                    console.log('Not your turn');
+                    alert('Not your turn');
+                });
+                socket.on('winplayer', ({ winplayer }: { winplayer: number }) => {
+                    console.log(winplayer)
+                    if (winplayer === 1) {
+                        console.log('Player 1 wins');
+                        alert('Player 1 wins');
+                    } else if (winplayer === 2) {
+                        console.log('Player 2 wins');
+                        alert('Player 2 wins');
+                    }
+                    setWinner(1);
                 });
             }
         })();
@@ -95,21 +108,6 @@ export default function Game() {
             if (winner === 0) {
                 console.log('Move made at', x, y);
                 socket.emit('move', { x, y });
-                socket.on('winplayer', ({ winplayer }: { winplayer: number }) => {
-                    console.log(winplayer)
-                    if (winplayer === 1) {
-                        console.log('Player 1 wins');
-                        alert('Player 1 wins');
-                    } else if (winplayer === 2) {
-                        console.log('Player 2 wins');
-                        alert('Player 2 wins');
-                    }
-                    setWinner(1);
-                });
-                socket.on('not_your_turn', () => {
-                    console.log('Not your turn');
-                    alert('Not your turn');
-                });
             };
         } catch (error) {
             alert((error as Error).message);
@@ -155,6 +153,18 @@ export default function Game() {
         }
     }
 
+    const handleAccept = () => {
+        // Handle accept logic here
+        socket.emit('retract_response_answer', { response: true });
+        setIsOpen(false);
+    };
+
+    const handleDecline = () => {
+        // Handle decline logic here
+        socket.emit('retract_response_answer', { response: false });
+        setIsOpen(false);
+    };
+
     return (
         <div>
             {board.map((row, y) => (
@@ -196,6 +206,16 @@ export default function Game() {
                         Send
                     </button>
                 </div>
+            </div>
+            <div>
+                {isOpen && (
+                    <div className={styles.confirmation_popup}>
+                        <p className={styles.confirmation_popup_p}>1. Do you want to accept the regret request?</p>
+                        <br></br>
+                        <button onClick={handleAccept} className={styles.confirmation_button}>Yes</button>
+                        <button onClick={handleDecline} className={styles.confirmation_button}>No</button>
+                    </div>
+                )}
             </div>
         </div>
     );

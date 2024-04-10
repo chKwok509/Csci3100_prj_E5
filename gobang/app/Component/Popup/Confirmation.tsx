@@ -3,26 +3,29 @@ import React, { useState } from "react";
 import styles from "./Confirmation.module.css";
 
 const Popupconfirm = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     const handleAccept = () => {
         // Handle accept logic here
         setIsOpen(false);
+        return true;
     };
 
     const handleDecline = () => {
         // Handle decline logic here
         setIsOpen(false);
+        return false;
     };
-
     return (
-        <div className={styles.popup}>
-            <h2>Confirmation</h2>
-            <p>Are you sure you want to proceed?</p>
-            <div className={styles.buttons}>
-                <button onClick={handleAccept}>Accept</button>
-                <button onClick={handleDecline}>Decline</button>
-            </div>
+        <div>
+            {isOpen && (
+                <div className={styles.confirmation_popup}>
+                    <p className={styles.confirmation_popup_p}>1. Do you want to accept the regret request?</p>
+                    <br></br>
+                    <button onClick={handleAccept} className={styles.confirmation_button}>Yes</button>
+                    <button onClick={handleDecline} className={styles.confirmation_button}>No</button>
+                </div>
+            )}
         </div>
     );
 };

@@ -1,30 +1,37 @@
 import { Server } from 'Socket.IO'
 import handlePVPQueue from './match';
 
+
 class game {
   board: number[][];
   currentPlayer: number;
   nextPlayer: number;
-  lastboard: number[][];
+  steps: [number, number][];
   constructor() {
     this.board = Array(19).fill(0).map(() => Array(19).fill(0));
     this.currentPlayer = 1;
     this.nextPlayer = 2;
-    this.lastboard = Array(19).fill(0).map(() => Array(19).fill(0));
+  }
+  push(x: number, y: number) {
+    this.steps.push([x, y]);
+  }
+  pop(): [number, number] {
+    return this.steps.pop() as [number, number];
   }
   makeMove(row: number, col: number, player: number) {
     // Check if the move is valid
     if (row < 0 || row >= this.board.length || col < 0 || col >= this.board[0].length || this.board[row][col] !== 0) {
+      alert('Invalid move');
       throw new Error('Invalid move');
     }
-    console.log(row, col, player);
+    console.log(player);
     // Place the piece
     this.setCurrentPlayer(player)
+    this.push(row, col);
     this.updateBoard(this.board, row, col, this.currentPlayer);
 
     // Check for a winner
     const winner = this.checkWinner();
-    console.log(winner);
     if (winner === 1) {
       return 3; // Return the winner
     } else if (winner === 2) {
@@ -32,6 +39,7 @@ class game {
     }
 
     // No winner, so change the turn to the other player
+    this.nextPlayer = this.currentPlayer;
     this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
     console.log(this.currentPlayer);
     return this.currentPlayer;
@@ -72,16 +80,8 @@ class game {
     return null; // no winner
   }
   updateBoard(board: number[][], x: number, y: number, player: number) {
-    this.updatelastboard(board, this.lastboard);
     board[x][y] = player;
     return board;
-  }
-  updatelastboard(board: number[][], lastboard: number[][]) {
-    lastboard = board;
-    return board;
-  }
-  getlastboard() {
-    return this.lastboard;
   }
   getBoard() {
     return this.board;
@@ -95,17 +95,25 @@ class game {
   resetgame() {
     this.board = Array(19).fill(0).map(() => Array(19).fill(0));
     this.currentPlayer = 1;
+    this.nextPlayer = 2;
+    this.steps = [];
   }
-  retractrequest(currentPlayer: number,nextPlayer: number) {
-    if (currentPlayer === 1) {
-      this.board = this.lastboard;
-      this.currentPlayer = nextPlayer;
-      return currentPlayer;
-    } else {
-      this.board = this.lastboard;
-      this.currentPlayer = nextPlayer;
-      return currentPlayer;
+  retractrequest(currentPlayer: number, nextPlayer: number) {
+    console.log(currentPlayer, nextPlayer)
+    if (currentPlayer === 1 && nextPlayer === 2) {
+      let [x, y] = this.pop();
+      this.updateBoard(this.board, x, y, 0);
+      this.currentPlayer = 2;
+      return 2;
+    } else if (currentPlayer === 2 && nextPlayer === 1) {
+      let [x, y] = this.pop();
+      this.updateBoard(this.board, x, y, 0);
+      this.currentPlayer = 1;
+      return 1;
     }
+  }
+  getnextPlayer() {
+    return this.nextPlayer;
   }
 }
 
@@ -122,7 +130,7 @@ const SocketHandler = (req: any, res: any) => {
     let player1: any;
     let player2: any;
     let nextPlayer = 1;
-    
+
     io.on('connection', (socket) => {
       console.log("Client connected with id: " + socket.id)
       socket.on('joinQueue', () => {
@@ -130,8 +138,8 @@ const SocketHandler = (req: any, res: any) => {
         console.log('Player joined the queue with id: ' + socket.id)
         handlePVPQueue(socket)
       })
-      
-      
+
+
       playersConnected++
       if (playersConnected === 1) {
         GobangGame.resetgame()
@@ -171,7 +179,7 @@ const SocketHandler = (req: any, res: any) => {
             player1.emit('move_on_board', { board })
             player2.emit('move_on_board', { board })
           }
-        } else if (socket === player2 && GobangGame.getCurrentPlayer() === 2){
+        } else if (socket === player2 && GobangGame.getCurrentPlayer() === 2) {
           nextPlayer = GobangGame.makeMove(y, x, 2)
           if (nextPlayer === 3) {
             const board = GobangGame.getBoard()
@@ -193,11 +201,12 @@ const SocketHandler = (req: any, res: any) => {
             player1.emit('move_on_board', { board })
             player2.emit('move_on_board', { board })
           }
-        }else if (socket === player1 && GobangGame.getCurrentPlayer() === 2){
+        } else if (socket === player1 && GobangGame.getCurrentPlayer() === 2) {
           player1.emit('not_your_turn')
-        }else if (socket === player2 && GobangGame.getCurrentPlayer() === 1){
+        } else if (socket === player2 && GobangGame.getCurrentPlayer() === 1) {
           player2.emit('not_your_turn')
-        }})
+        }
+      })
 
       socket.on('retract_request', () => {
         if (socket === player1) {
@@ -210,22 +219,26 @@ const SocketHandler = (req: any, res: any) => {
       })
 
       socket.on('retract_response_answer', ({ response }) => {
-        if (socket === player1){
-          player2.emit('retract_response', { response })
+        if (socket === player1) {
+          player2.emit('retract_response', ({ response }))
         }
-        else if (socket === player2){
-          player1.emit('retract_response', { response })
+        else if (socket === player2) {
+          player1.emit('retract_response', ({ response }))
         }
       })
 
-      socket.emit('retract', () => {
-        return GobangGame.retractrequest(GobangGame.getCurrentPlayer(), nextPlayer)
+      socket.on('retract', () => {
+        console.log('Now retract')
+        let nowplayer = GobangGame.retractrequest(GobangGame.getCurrentPlayer(), GobangGame.getnextPlayer())
+        GobangGame.setCurrentPlayer(nowplayer as number)
+        player1.emit('move_on_board', { board: GobangGame.getBoard() })
+        player2.emit('move_on_board', { board: GobangGame.getBoard() })
       })
 
       socket.on('surrender', () => {
         if (socket === player1) {
           player1.emit('surrenderwinner', { winner: 2 })
-          player2.emit('surrender', { winner: 2 })
+          player2.emit('surrenderwinner', { winner: 2 })
         } else if (socket === player2) {
           player1.emit('surrenderwinner', { winner: 1 })
           player2.emit('surrenderwinner', { winner: 1 })
