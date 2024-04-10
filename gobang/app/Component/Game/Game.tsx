@@ -13,8 +13,6 @@ export default function Game() {
     const [board, setBoard] = useState<number[][]>(initialBoardState);
     const [winner, setWinner] = useState(0);
     const router = useRouter();
-    const [inputText, setInputText] = useState('');
-    const [chatHistory, setChatHistory] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -23,13 +21,12 @@ export default function Game() {
                 // @ts-ignore
                 window.connected = true;
                 await fetch('/api/socket')
-                socket = io();
+                socket = io()
                 socket.on('connect', () => {
                     console.log('Connected to server with id: ' + socket.id)
                     socket.emit('join_Queue');
                 });
                 socket.on('move_on_board', ({ board }: { board: number[][] }) => {
-                    console.log('Move made on board');
                     setBoard(board);
                 });
                 socket.on('retract_request_other', () => {
@@ -57,38 +54,13 @@ export default function Game() {
                         console.log('Regret denied');
                     }
                 });
-                socket.on('chat', ({ newMessage }: { newMessage: { text: string, timestamp: string } }) => {
-                    console.log(newMessage);
+                socket.on('Welcome to the game room!', () => {
+                    socket.emit('start_game');
+                    console.log('Welcome to the game room!');
                 });
             }
         })();
     }, []);
-
-    const handleInputChange = (event) => {
-        try {
-            setInputText(event.target.value);
-        }
-        catch (error) {
-            alert((error as Error).message);
-        }
-    };
-
-    const handleSendClick = () => {
-        try {
-            if (inputText.trim() !== '') {
-                const newMessage = {
-                    text: inputText,
-                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                };
-                setChatHistory([...chatHistory, newMessage]);
-                socket.emit('chat', { newMessage });
-                setInputText('');
-            }
-        }
-        catch (error) {
-            alert((error as Error).message);
-        }
-    };
 
     const handleCellClick = (x: number, y: number) => {
         try {
@@ -97,6 +69,7 @@ export default function Game() {
                 socket.emit('move', { x, y });
                 socket.on('winplayer', ({ winplayer }: { winplayer: number }) => {
                     console.log(winplayer)
+
                     if (winplayer === 1) {
                         console.log('Player 1 wins');
                         alert('Player 1 wins');
@@ -117,13 +90,8 @@ export default function Game() {
     };
 
     const handleExitClick = () => {
-        try {
-            socket.disconnect();
-            router.push('/Page/Mainpage');
-        }
-        catch (error) {
-            alert((error as Error).message);
-        }
+        socket.disconnect();
+        router.push('./Mainpage');
     }
 
     const handleRegretClick = () => {
@@ -176,27 +144,8 @@ export default function Game() {
             <div className={styles.bottom_left_buttons3}>
                 <button className={styles.bottom_left_buttons3_button} onClick={handleExitClick}>Exit</button>
             </div>
-            <div className={styles.chatroom}>
-                <div className={styles.chat_history}>
-                    {chatHistory.map((message, index) => (
-                        <p key={index}>
-                            <span className={styles.message}>You: {message.text}</span>
-                            <span className={styles.timestamp}> {message.timestamp}</span>
-                        </p>
-                    ))}
-                </div>
-                <div className={styles.input_area}>
-                    <input
-                        type="text"
-                        placeholder="Type a message..."
-                        value={inputText}
-                        onChange={handleInputChange}
-                    />
-                    <button className={styles.butsend} onClick={handleSendClick}>
-                        Send
-                    </button>
-                </div>
-            </div>
         </div>
     );
 }
+
+//Fix1

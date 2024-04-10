@@ -9,23 +9,64 @@ import io from 'socket.io-client';
 
 
 export default function Gamepage() {
-    const router = useRouter();
+  const router = useRouter();
+  const [inputText, setInputText] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
 
-    return (
-        <body>
-            <div className={styles.player_info}>
-                <p>Player 1</p>
-                <p>vs</p>
-                <p>Player 2</p>
-                <SystemTime />
-                <Timer />
-            </div>
+  const handleInputChange = (event) => {
+    setInputText(event.target.value);
+  };
 
-            <div className={styles.boardpost}>
-                <div id="chess-board">
-                    <Game />
-                </div>
-            </div>
-        </body>
-    );
+  const handleSendClick = () => {
+    if (inputText.trim() !== '') {
+      const newMessage = {
+        text: inputText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setChatHistory([...chatHistory, newMessage]);
+      setInputText('');
+    }
+  };
+
+  return (
+    <body>
+      <div className={styles.player_info}>
+        <p>Player 1</p>
+        <p>vs</p>
+        <p>Player 2</p>
+        <SystemTime />
+        <Timer />
+      </div>
+
+      <div className={styles.chatroom}>
+        <div className={styles.chat_history}>
+          {chatHistory.map((message, index) => (
+            <p key={index}>
+              <span className={styles.message}>You: {message.text}</span>
+              <span className={styles.timestamp}> {message.timestamp}</span>
+            </p>
+          ))}
+        </div>
+        <div className={styles.input_area}>
+          <input
+            className={styles.input_box}
+            type="text"
+            placeholder="Type a message..."
+            value={inputText}
+            onChange={handleInputChange}
+          />
+          <button className={styles.send_button} onClick={handleSendClick}>
+            Send
+          </button>
+        </div>
+      </div>
+      <div className={styles.boardpost}>
+        <div id="chess-board">
+          <Game />
+        </div>
+      </div>
+    </body>
+  );
 }
+
+//Fix1
