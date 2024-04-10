@@ -1,0 +1,98 @@
+.body {
+    position: relative;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/public/wallpaper.jpeg"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.player_info {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    transform: translate(-50%,-50%);
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(255,255,255,0.1);
+    background-color: rgba(0,102,102,0.13);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    text-align: center;
+    padding: 0px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    color: gray;
+}
+
+.chatroom {
+    position: absolute;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ccc;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.chat_history {
+    flex: 9;
+    overflow-y: auto;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: rgb(80, 80, 80);
+    opacity: 0.5;
+}
+
+.input_area {
+    flex: 1;
+    display: flex;
+    padding: 10px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: gray;
+}
+
+.input_area_input {
+    flex: 1;
+    margin-right: 10px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(80, 80, 80);
+    font-size: 20px;
+}
+
+.boardpost {
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    width: 840px;
+    height: 650px;
+    border: 2px solid gery;
+    background-color: black;
+    border: 2px solid rgb(138, 135, 135);
+    box-sizing: border-box;
+    border-radius: 0px;
+
+}
+.chess_board {
+    display: grid;
+    grid-template-columns: repeat(19, 1fr);
+    grid-template-rows: repeat(19, 1fr);
+    gap: 0px;
+    width: 850px;
+    height: 850px;
+    border: 2px solid gery;
+    background-color: black;
+    border: 2px solid rgb(138, 135, 135);
+    box-sizing: border-box;
+    border-radius: 0px;
+}
+
+.butsend{
+    cursor: pointer;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(151, 150, 150);
+}

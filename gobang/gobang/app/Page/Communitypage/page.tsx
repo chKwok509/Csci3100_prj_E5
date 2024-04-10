@@ -10,15 +10,9 @@ import { useRouter } from 'next/navigation';
 
 export default function CommunityPage() {
     const router = useRouter();
-    const [friends,setfriends]=useState<string[]>(['Bob','Peter','Mary','Oscar'])
+    var [friends,setfriends]=useState<string[]>(['Bob','Peter','Mary','Oscar'])
 
-    const handledeletefriend=(friend:string)=>{
-      const index = friends.indexOf(friend);
-      if (index > -1) { 
-        friends.splice(index, 1); 
-      }
-      setfriends(friends);
-    }
+   
     return (
         <body className={styles.body}>
             <div className={styles.center_image}>
@@ -33,14 +27,14 @@ export default function CommunityPage() {
       
     </div>
     <button className={styles.backbutton} onClick={()=>router.back()}>Back</button>
-    <div className={styles.storeitems}>
+    <div className={styles.storeitems} id='friendmap'>
       {friends.map((friend) => (
             <div key={friend}>
               {friend}
-              <button className={styles.buybutton} onClick={()=>{handledeletefriend(friend)}}>Remove friend</button>
             </div>
           ))}
       </div>
+      <></>
     </body>
   );
 }
