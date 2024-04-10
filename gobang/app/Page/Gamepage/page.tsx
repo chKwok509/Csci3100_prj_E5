@@ -42,19 +42,20 @@ export default function Gamepage() {
                 <div className={styles.chat_history}>
                     {chatHistory.map((message, index) => (
                         <p key={index}>
-  <span className={styles.message}>You: {message.text}</span>
-  <span className={styles.timestamp}> {message.timestamp}</span>
-</p>
+                            <span className={styles.message}>You: {message.text}</span>
+                            <span className={styles.timestamp}> {message.timestamp}</span>
+                        </p>
                     ))}
                 </div>
                 <div className={styles.input_area}>
                     <input
+                        className={styles.input_box}
                         type="text"
                         placeholder="Type a message..."
                         value={inputText}
                         onChange={handleInputChange}
                     />
-                    <button className={styles.butsend} onClick={handleSendClick}>
+                    <button className={styles.send_button} onClick={handleSendClick}>
                         Send
                     </button>
                 </div>
