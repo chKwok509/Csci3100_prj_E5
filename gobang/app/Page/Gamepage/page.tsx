@@ -4,6 +4,8 @@ import Game from '@/app/Component/Game/Game';
 import { useRouter } from 'next/navigation';
 import Timer from '@/app/Component/Game/timer';
 import SystemTime from '@/app/Component/Game/systemtime';
+import io from 'socket.io-client';
+
 
 export default function Gamepage(){
     const router = useRouter();

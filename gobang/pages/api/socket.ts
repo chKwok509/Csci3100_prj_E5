@@ -122,10 +122,11 @@ const SocketHandler = (req: any, res: any) => {
     let player1: any;
     let player2: any;
     let nextPlayer = 1;
-
+    
     io.on('connection', (socket) => {
       console.log("Client connected with id: " + socket.id)
       socket.on('joinQueue', () => {
+        console.log('can u join queue')
         console.log('Player joined the queue with id: ' + socket.id)
         handlePVPQueue(socket)
       })
@@ -143,9 +144,17 @@ const SocketHandler = (req: any, res: any) => {
         if (socket === player1 && GobangGame.getCurrentPlayer() === 1) {
           nextPlayer = GobangGame.makeMove(y, x, 1)
           if (nextPlayer === 3) {
+            const board = GobangGame.getBoard()
+            GobangGame.setCurrentPlayer(nextPlayer)
+            player1.emit('move_on_board', { board })
+            player2.emit('move_on_board', { board })
             player1.emit('winplayer', { winplayer: 1 })
             player2.emit('winplayer', { winplayer: 1 })
           } else if (nextPlayer === 4) {
+            const board = GobangGame.getBoard()
+            GobangGame.setCurrentPlayer(nextPlayer)
+            player1.emit('move_on_board', { board })
+            player2.emit('move_on_board', { board })
             player1.emit('winplayer', { winplayer: 2 })
             player2.emit('winplayer', { winplayer: 2 })
           } else {
@@ -157,9 +166,17 @@ const SocketHandler = (req: any, res: any) => {
         } else if (socket === player2 && GobangGame.getCurrentPlayer() === 2){
           nextPlayer = GobangGame.makeMove(y, x, 2)
           if (nextPlayer === 3) {
+            const board = GobangGame.getBoard()
+            GobangGame.setCurrentPlayer(nextPlayer)
+            player1.emit('move_on_board', { board })
+            player2.emit('move_on_board', { board })
             player1.emit('winner', { winner: 1 })
             player2.emit('winner', { winner: 1 })
           } else if (nextPlayer === 4) {
+            const board = GobangGame.getBoard()
+            GobangGame.setCurrentPlayer(nextPlayer)
+            player1.emit('move_on_board', { board })
+            player2.emit('move_on_board', { board })
             player1.emit('winner', { winner: 2 })
             player2.emit('winner', { winner: 2 })
           } else {

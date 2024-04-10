@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './game.module.css';
-import io from 'Socket.IO-client';
+import io from 'socket.io-client';
 import { useRouter } from 'next/navigation';
 import { set } from 'mongoose';
 
@@ -11,8 +11,6 @@ const initialBoardState: number[][] = Array(19).fill(0).map(() => Array(19).fill
 
 export default function Game() {
     const [board, setBoard] = useState<number[][]>(initialBoardState);
-    const [Xpos, setX] = useState<number>(0);
-    const [Ypos, setY] = useState<number>(0);
     const [winner, setWinner] = useState(0);
     const router = useRouter();
 
@@ -26,6 +24,7 @@ export default function Game() {
                 socket = io()
                 socket.on('connect', () => {
                     console.log('Connected to server with id: ' + socket.id)
+                    socket.emit('join_Queue');
                 });
                 socket.on('move_on_board', ({ board }: { board: number[][] }) => {
                     setBoard(board);
@@ -40,11 +39,24 @@ export default function Game() {
                 });
                 socket.on('You have been matched with another player', () => {
                     console.log('You have been matched with another player');
-                    if(confirm('You have been matched with another player')) {
+                    if (confirm('You have been matched with another player')) {
                         socket.emit('confirmation', { response: true });
-                    }else {
+                    } else {
                         socket.emit('confirmation', { response: false });
                     }
+                });
+                socket.on('retractresponse', ({ response }: { response: boolean }) => {
+                    console.log(response);
+                    if (response) {
+                        console.log('Regret accepted');
+                        socket.emit('retract');
+                    } else {
+                        console.log('Regret denied');
+                    }
+                });
+                socket.on('Welcome to the game room!', () => {
+                    socket.emit('start_game');
+                    console.log('Welcome to the game room!');
                 });
             }
         })();
@@ -85,16 +97,6 @@ export default function Game() {
     const handleRegretClick = () => {
         try {
             socket.emit('retract_request');
-
-            socket.on('retractresponse', ({ response }: { response: boolean }) => {
-                console.log(response);
-                if (response) {
-                    console.log('Regret accepted');
-                    socket.emit('retract');
-                } else {
-                    console.log('Regret denied');
-                }
-            });
         }
         catch (error) {
             alert((error as Error).message);
