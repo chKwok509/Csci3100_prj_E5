@@ -57,9 +57,10 @@
 
 .chatroom {
     position: absolute;
-    right: 0;
-    width: 20%;
-    height: 100%;
+    right: -300px;
+    top : 0px;
+    width: 35%;
+    height: 115%;
     display: flex;
     flex-direction: column;
     border-left: 1px solid #ccc;
