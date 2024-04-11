@@ -31,7 +31,7 @@ export default function MainPage() {
             <button className={styles.button} onClick={() => router.push('/Page/Communitypage')}>Community</button>
 
             <button className={styles.button} onClick={() => confirm("Quit?") && router.push('/')}>Quit</button>
-            <div className={styles.version}>V0.0.0</div>
+            <div className={styles.version_id}>V0.0.0</div>
             <Chatroom />
         </body>
     );
