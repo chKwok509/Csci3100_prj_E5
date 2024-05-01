@@ -9,7 +9,26 @@ import { useRouter } from 'next/navigation';
 
 export default function CommunityPage() {
   const router = useRouter();
-  const [friends, setfriends] = useState<string[]>(['Peter33446', 'Amy_is_fat', 'Nicker','天水圍墮天地獄獸']);
+  const [friends, setFriends] = useState<string[]>(['Peter33446', 'Amy_is_fat', 'Nicker', '天水圍墮天地獄獸']);
+  const [newFriend, setNewFriend] = useState('');
+  const existingFriends = ['James', 'PeePee69', 'Jenny', '1155123456'];
+
+  const handleAddFriend = () => {
+    if (newFriend.trim() !== '') {
+      if (existingFriends.includes(newFriend)) {
+        if (friends.includes(newFriend)) {
+          alert('Friend already exists!');
+        } else {
+          setFriends([...friends, newFriend]);
+          setNewFriend('');
+        }
+      } else {
+        alert('User does not exist!');
+      }
+    } else {
+      alert("Please enter a friend's name.");
+    }
+  };
 
   return (
     <body className={styles.body}>
@@ -31,15 +50,33 @@ export default function CommunityPage() {
               <span className={styles.friendName}>{friend}</span>
               <button
                 className={styles.removeButton}
-                onClick={() => { confirm('remove ' + friend + ' ?') && setfriends(friends.filter((a) => a !== friend)) }}
+                onClick={() => {
+                  if (confirm('remove ' + friend + ' ?')) {
+                    setFriends(friends.filter((a) => a !== friend));
+                  }
+                }}
               >
                 Remove friend
               </button>
             </div>
           ))}
         </div>
+        <div className={styles.addFriend}>
+          <input
+            type="text"
+            value={newFriend}
+            onChange={(e) => setNewFriend(e.target.value)}
+            placeholder="Enter friend's name"
+            className={styles.friendInput}
+          />
+          <button className={styles.addButton} onClick={handleAddFriend}>
+            Add Friend
+          </button>
+        </div>
       </div>
-      <button className={styles.backbutton} onClick={() => router.back()}>Back</button>
+      <button className={styles.backbutton} onClick={() => router.back()}>
+        Back
+      </button>
     </body>
   );
 }
