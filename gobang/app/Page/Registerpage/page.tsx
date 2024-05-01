@@ -28,6 +28,7 @@ export default function RegisterPage() {
         }).then(response => {
             if (response.ok) {
                 // Redirect the user to the login page
+                alert('Register sucessfully');
                 router.push('/Page/Loginpage');
             } else {
                 // Display an error message to the user
