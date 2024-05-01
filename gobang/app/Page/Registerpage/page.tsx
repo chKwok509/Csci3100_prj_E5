@@ -31,7 +31,7 @@ export default function RegisterPage() {
                 router.push('/Page/Loginpage');
             } else {
                 // Display an error message to the user
-                alert('Repeated username or password!');
+                alert('Repeated set of username and password or invalid input');
             }
         });
     };
