@@ -2,42 +2,52 @@ import React, { useState } from 'react';
 import styles from './Chatroom.module.css';
 
 const Chatroom = () => {
-  const [showFriends, setShowFriends] = useState(false);
-  const [selectedFriend, setSelectedFriend] = useState('');
-  const [showChatBox, setShowChatBox] = useState(false);
-  const [friendMessages, setFriendMessages] = useState({}); // Store messages for each friend
-  const [newMessage, setNewMessage] = useState('');
+  // State variables
+  const [showFriends, setShowFriends] = useState(false); // Controls whether the list of friends is shown
+  const [selectedFriend, setSelectedFriend] = useState(''); // Stores the name of the friend currently selected
+  const [showChatBox, setShowChatBox] = useState(false); // Controls whether the chat box is shown
+  const [friendMessages, setFriendMessages] = useState({}); // Stores messages for each friend
+  const [newMessage, setNewMessage] = useState(''); // Stores the value of the input field for typing a new message
 
+  // Function to open the chat and show the list of friends
   const handleOpenChat = () => {
     setShowFriends(true);
   };
 
+  // Function to handle the selection of a friend
   const handleFriendSelection = (friendName) => {
     setSelectedFriend(friendName);
     setShowChatBox(true);
   };
 
+  // Function to close the chat box
   const closeChatBox = () => {
     setShowChatBox(false);
   };
 
+  // Function to handle sending a message
   const handleSendMessage = () => {
     if (newMessage.trim() === '') return; // Prevent sending empty messages
 
+    // Create a new message object with the sender, content, and timestamp
     const message = {
       sender: 'You',
       content: newMessage,
       timestamp: new Date(),
     };
 
+    // Update the friendMessages state by adding the new message to the selected friend's array of messages
     setFriendMessages((prevMessages) => ({
       ...prevMessages,
       [selectedFriend]: [...(prevMessages[selectedFriend] || []), message],
     }));
+
+    // Clear the newMessage input field
     setNewMessage('');
   };
 
-  const friends = ['Peter33446', 'Amy_is_fat', 'Nicker','天水圍墮天地獄獸']; // Replace with your list of friends
+  // Replace with your list of friends
+  const friends = ['Peter33446', 'Amy_is_fat', 'Nicker', '天水圍墮天地獄獸'];
 
   return (
     <div>

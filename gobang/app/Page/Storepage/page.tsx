@@ -16,23 +16,24 @@ import { useRouter } from 'next/navigation';
 
 export default function StorePage() {
   const router = useRouter();
-  const [coin, setcoin] = useState(300);
-  const [owned, setowned] = useState<string[]>([]);
-  const items = ['Board1', 'Board2', 'Board3', 'Board4'];
+  const [coin, setcoin] = useState(300); // State variable for coins
+  const [owned, setowned] = useState<string[]>([]); // State variable for owned items
+  const items = ['Board1', 'Board2', 'Board3', 'Board4']; // Array of available items
 
   const handleBuyItem = (item: string) => {
     if (coin >= 100 && !owned.includes(item)) {
-      setcoin(coin - 100);
-      owned.push(item);
-      setowned(owned);
+      setcoin(coin - 100); // Deduct coins
+      owned.push(item); // Add item to owned array
+      setowned(owned); // Update owned items state
     } else if (owned.includes(item)) {
-      alert('You already OWNED this!! Buy something else!!');
+      alert('You already OWNED this!! Buy something else!!'); // Item is already owned
     } else if (coin < 100) {
-      alert('Not enough money!!!!');
+      alert('Not enough money!!!!'); // Not enough coins
     }
   };
   return (
     <body className={styles.body}>
+      {/* Player Info */}
       <div className={styles.playerInfo}>
         <Image src={playericon} alt="Player Icon" className={styles.playerInfo_img} width={600} height={120} />
         <div>
@@ -40,10 +41,13 @@ export default function StorePage() {
           <p className={styles.playerName}>Wilson Lui</p>
         </div>
       </div>
+      {/* Remaining Coins */}
       <div className={styles.remainingCoins}>Remaining coins: {coin}</div>
+      {/* Main Image */}
       <div className={styles.center_image}>
         <Image src={mainimage} alt="Main Image" className={styles.center_image_img} />
       </div>
+      {/* Skins */}
       <div className={styles.container}>
         <div className={styles.boxRow}>
           <div className={styles.box}>

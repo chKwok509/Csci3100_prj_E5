@@ -15,10 +15,12 @@ export default function CommunityPage() {
 
   const handleAddFriend = () => {
     if (newFriend.trim() !== '') {
+      // Check if the entered name exists in the list of existing friends
       if (existingFriends.includes(newFriend)) {
         if (friends.includes(newFriend)) {
           alert('Friend already exists!');
         } else {
+          // Add the new friend to the list
           setFriends([...friends, newFriend]);
           setNewFriend('');
         }
@@ -32,6 +34,7 @@ export default function CommunityPage() {
 
   return (
     <body className={styles.body}>
+      {/* Player Information */}
       <div className={styles.playerInfo}>
         <Image src={playericon} alt="Player Icon" className={styles.playerInfo_img} width={600} height={120} />
         <div>
@@ -39,11 +42,14 @@ export default function CommunityPage() {
           <p className={styles.playerName}>Wilson Lui</p>
         </div>
       </div>
+
+      {/* Main Image */}
       <div className={styles.center_image}>
         <Image src={mainimage} alt="Main Image" className={styles.center_image_img} />
       </div>
 
       <div className={styles.container}>
+        {/* Friends List */}
         <div className={styles.storeitems}>
           {friends.map((friend) => (
             <div key={friend} className={styles.friend}>
@@ -52,6 +58,7 @@ export default function CommunityPage() {
                 className={styles.removeButton}
                 onClick={() => {
                   if (confirm('remove ' + friend + ' ?')) {
+                    // Remove the friend from the list
                     setFriends(friends.filter((a) => a !== friend));
                   }
                 }}
@@ -61,6 +68,8 @@ export default function CommunityPage() {
             </div>
           ))}
         </div>
+
+        {/* Add Friend */}
         <div className={styles.addFriend}>
           <input
             type="text"
@@ -74,6 +83,8 @@ export default function CommunityPage() {
           </button>
         </div>
       </div>
+
+      {/* Back Button */}
       <button className={styles.backbutton} onClick={() => router.back()}>
         Back
       </button>
