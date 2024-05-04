@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 export default function MainPage() {
     const router = useRouter();
 
+    //Design the layout of the main page
     return (
         <body className={styles.body}>
             <div className={styles.center_image}>

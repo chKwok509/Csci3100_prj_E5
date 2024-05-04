@@ -1,6 +1,7 @@
 import registerUser from "@/app/lib/Mongodb/register";
 import { NextRequest, NextResponse } from "next/server";
 
+//Register user route
 export async function POST(req: NextRequest){
     let body = await req.json();
     if (!body.username || !body.password) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+//Time component
 function SystemTime() {
     const [time, setTime] = useState(new Date());
     const [hasMounted, setHasMounted] = useState(false);

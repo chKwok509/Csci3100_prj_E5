@@ -1,6 +1,7 @@
 import authenticateUser from "@/app/lib/Mongodb/authuser";
 import { NextRequest, NextResponse } from "next/server";
 
+//Authenticate user route
 export async function POST(req: NextRequest){
     let body = await req.json();
     if (!body.username || !body.password) {

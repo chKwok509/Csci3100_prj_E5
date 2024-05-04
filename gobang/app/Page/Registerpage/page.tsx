@@ -37,6 +37,7 @@ export default function RegisterPage() {
         });
     };
 
+    //Design the layout of the register page
     return (
         <body className={styles.body}>
             <form onSubmit={handleSubmit} className={styles.form}>

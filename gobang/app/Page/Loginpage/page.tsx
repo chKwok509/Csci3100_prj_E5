@@ -36,7 +36,7 @@ export default function LoginPage() {
         });
     };
 
-
+    //Design the layout of the login page
     return (
         <body className={styles.body}>
             <form className={styles.form} onSubmit={handleLogin}>

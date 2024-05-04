@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./Confirmation.module.css";
 
+// Popup confirm component
 const Popupconfirm = () => {
     const [isOpen, setIsOpen] = useState(true);
 

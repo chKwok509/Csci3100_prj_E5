@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import styles from "./Popuprule.module.css";
 
+
+//Dsign the popup function
 const Popuprule= () => {
     const [showModal,setShowModal] = useState(false);
     return (

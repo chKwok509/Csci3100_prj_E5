@@ -13,8 +13,7 @@ export default function Gamepage() {
   const [inputText, setInputText] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
 
-  
-
+  //Design the layout of the game page
   return (
     <body>
       <div className={styles.player_info}>

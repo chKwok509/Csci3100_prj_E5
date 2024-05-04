@@ -7,7 +7,7 @@ let socket: any;
 let i = 0;
 
 const initialBoardState: number[][] = Array(19).fill(0).map(() => Array(19).fill(0));
-
+//basic game logic
 export default function Game() {
     const [board, setBoard] = useState<number[][]>(initialBoardState);
     const [winner, setWinner] = useState(0);
@@ -16,6 +16,7 @@ export default function Game() {
     const [chatHistory, setChatHistory] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
+    //Design of server-client communication
     useEffect(() => {
         (async () => {
             // @ts-ignore
@@ -150,6 +151,7 @@ export default function Game() {
         }
     };
 
+    // Design the layout of the gameboard and game logic
     return (
         <div>
             {board.map((row, y) => (
